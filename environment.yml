@@ -11,7 +11,6 @@ dependencies:
   - conda-libmamba-solver
   - menuinst
   - anaconda-anon-usage
-  - libblas=[build=*mkl]
   - esmpy
   - xesmf
   - pytest
@@ -55,8 +54,6 @@ dependencies:
   - pygrib
   - f90nml
   - seawater
-  - mo_pack
-  - libmo_unpack
   - cmocean
   - eofs
   - pyasn1
@@ -80,7 +77,6 @@ dependencies:
   - imageio
   - jbig
   - lzo
-  - get_terminal_size
   - mock
   - sphinxcontrib
   - pytables
@@ -101,7 +97,5 @@ dependencies:
   - autopep8
   - mdutils
   - earthaccess
-  - f90wrap
   - pythran
-  - nc_time_axis
 prefix: /usr/local/other/python/GEOSpyD/24.4.0-0_py3.12/2024-05-31
