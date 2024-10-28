@@ -75,8 +75,16 @@ ds = xr.open_mfdataset(path_list)['NEE']
 # Select grid closest to selected site
 ds_subset = ds.sel(lon=site_lon, lat=site_lat, method='nearest')
 
-# Export the data to csv
-ds_csv = pd.Series(ds_subset, index=time)
-print(ds_csv)
+# Prep data for writing to csv
+ds_out = ds_subset.squeeze(dim=['lat','lon'],drop=True).to_dataframe()
+ds_out = ds_out.rename(columns={'NEE': 'MiCASA NEE (kgC m-2 s-1)'})
 
+# Write to csv
+output_dir = 'output'
+output_filename = f'{site_ID}_micasa'
+output_path = os.path.join(output_dir, output_filename)
+
+os.makedirs(output_dir, exist_ok=True)
+
+ds_out.to_csv(output_path)
 
