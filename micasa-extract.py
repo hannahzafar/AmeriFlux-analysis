@@ -45,7 +45,7 @@ fluxnet_sel_simple .index = pd.to_datetime(fluxnet_sel_simple ['TIMESTAMP_START'
 fluxnet_sel_simple.index.names = ['time']
 
 # Create a list of unique dates from the site
-time = fluxnet_sel_final.time.to_index()
+time = fluxnet_sel_simple.time.to_index()
 dates_unique = list({dt.date() for dt in time})
 dates_unique.sort()
 
