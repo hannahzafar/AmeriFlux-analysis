@@ -44,8 +44,17 @@ fluxnet_sel_simple = fluxnet_sel[['TIMESTAMP_START','TIMESTAMP_END', 'NEE_VUT_RE
 fluxnet_sel_simple .index = pd.to_datetime(fluxnet_sel_simple ['TIMESTAMP_START'],format='%Y%m%d%H%M')
 fluxnet_sel_simple.index.names = ['time']
 
+
+# Convert and resample
+# FluxNet NEE_VUT_REF (umolCO2 m-2 s-1) to MiCASA (kgC m-2 s-1)
+fluxnet_sel_final = fluxnet_sel_simple['NEE_VUT_REF']*1e-6*12.01*1e-3
+
+# resample to 3-hourly per MiCASA
+fluxnet_sel_final = fluxnet_sel_final.resample('3h').mean().to_xarray()
+# fluxnet_sel_final_p = fluxnet_sel_final.resample('3h').mean()
+
 # Create a list of unique dates from the site
-time = fluxnet_sel_simple.time.to_index()
+time = fluxnet_sel_final.time.to_index()
 dates_unique = list({dt.date() for dt in time})
 dates_unique.sort()
 
