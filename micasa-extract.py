@@ -75,8 +75,6 @@ for date in dates_unique:
 ds = xr.open_mfdataset(path_list)['NEE']
 # Select grid closest to selected site
 ds_subset = ds.sel(lon=site_lon, lat=site_lat, method='nearest')
-ds_subset
-
 
 # Export the data to csv
 ds_csv = pd.Series(ds_subset, index=time)
