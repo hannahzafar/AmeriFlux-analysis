@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# Extract micasa data as csv for plotting
+# Extract fluxnet and micasa data as csv for plotting
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
