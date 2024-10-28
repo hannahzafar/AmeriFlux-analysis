@@ -8,6 +8,7 @@ import xarray as xr
 import glob
 import argparse
 import sys
+import os
 
 
 ######### functions ############
