@@ -52,6 +52,7 @@ fluxnet_sel_final = fluxnet_sel_simple['NEE_VUT_REF']*1e-6*12.01*1e-3
 
 # resample to 3-hourly per MiCASA
 fluxnet_sel_final = fluxnet_sel_final.resample('3h').mean().to_xarray()
+# let's not make this xarray and figure out how to do it just with pandas - then I will export both as csv's
 # fluxnet_sel_final_p = fluxnet_sel_final.resample('3h').mean()
 
 # Create a list of unique dates from the site
