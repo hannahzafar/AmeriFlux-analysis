@@ -71,20 +71,20 @@ for date in dates_unique:
     path_list.append(filepath)
 
 # open all paths
-ds = xr.open_mfdataset(path_list)['NEE']
-# Select grid closest to selected site
-ds_subset = ds.sel(lon=site_lon, lat=site_lat, method='nearest')
+with xr.open_mfdataset(path_list)['NEE'] as ds:
+    # Select grid closest to selected site
+    ds_subset = ds.sel(lon=site_lon, lat=site_lat, method='nearest')
 
-# Prep data for writing to csv
-ds_out = ds_subset.squeeze(dim=['lat','lon'],drop=True).to_dataframe()
-ds_out = ds_out.rename(columns={'NEE': 'MiCASA NEE (kgC m-2 s-1)'})
+    # Prep data for writing to csv
+    ds_out = ds_subset.squeeze(dim=['lat','lon'],drop=True).to_dataframe()
+    ds_out = ds_out.rename(columns={'NEE': 'MiCASA NEE (kgC m-2 s-1)'})
 
-# Write to csv
-output_dir = 'output'
-output_filename = f'{site_ID}_micasa'
-output_path = os.path.join(output_dir, output_filename)
+    # Write to csv
+    output_dir = 'output'
+    output_filename = f'{site_ID}_micasa'
+    output_path = os.path.join(output_dir, output_filename)
 
-os.makedirs(output_dir, exist_ok=True)
+    os.makedirs(output_dir, exist_ok=True)
 
-ds_out.to_csv(output_path)
+    ds_out.to_csv(output_path)
 
