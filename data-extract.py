@@ -32,9 +32,10 @@ site_ID = args.site_ID
 filepath = 'ameriflux-data/'
 meta_file = filepath + 'AmeriFlux-site-search-results-202410071335.tsv'
 ameriflux_meta = pd.read_csv(meta_file, sep='\t')
-site_meta = ameriflux_meta.loc[ameriflux_meta['Site ID'] == site_ID]
-site_lat, site_lon = site_meta['Latitude (degrees)'].values, site_meta['Longitude (degrees)'].values
-# print(site_lat, site_lon)
+site_lat = ameriflux_meta.loc[ameriflux_meta['Site ID'] == site_ID, 'Latitude (degrees)'].values
+site_lon = ameriflux_meta.loc[ameriflux_meta['Site ID'] == site_ID, 'Longitude (degrees)'].values
+print(site_lat, site_lon)
+sys.exit()
 
 # Open site data and access time indices
 site_file = get_single_match(filepath + 'AMF_' + site_ID + 
