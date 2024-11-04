@@ -63,15 +63,15 @@ site_file = get_single_match(filepath + 'AMF_' + site_ID +
 fluxnet_sel = pd.read_csv(site_file)
 
 # select subset of columns + convert to datetime objects
-fluxnet_sel_simple = fluxnet_sel.loc[:,['TIMESTAMP_START','TIMESTAMP_END', 'NEE_VUT_REF']].copy()
-fluxnet_sel_simple['TIMESTAMP_START'] = pd.to_datetime(fluxnet_sel_simple ['TIMESTAMP_START'],format='%Y%m%d%H%M')
-fluxnet_sel_simple['TIMESTAMP_END'] = pd.to_datetime(fluxnet_sel_simple ['TIMESTAMP_END'],format='%Y%m%d%H%M')
+fluxnet_sel_dates = fluxnet_sel.loc[:,['TIMESTAMP_START','TIMESTAMP_END']].copy()
+fluxnet_sel_dates['TIMESTAMP_START'] = pd.to_datetime(fluxnet_sel_dates['TIMESTAMP_START'],format='%Y%m%d%H%M')
+fluxnet_sel_dates['TIMESTAMP_END'] = pd.to_datetime(fluxnet_sel_dates['TIMESTAMP_END'],format='%Y%m%d%H%M')
 
 # Convert time to UTC
-fluxnet_sel_simple = local_std_to_utc_std(fluxnet_sel_simple,'TIMESTAMP_START',site_lat, site_lon)
+fluxnet_sel_dates = local_std_to_utc_std(fluxnet_sel_dates,'TIMESTAMP_START',site_lat, site_lon)
 
-fluxnet_sel_simple = fluxnet_sel_simple.set_index('utc_time')
-print(fluxnet_sel_simple)
+fluxnet_sel_dates = fluxnet_sel_dates.set_index('utc_time')
+print(fluxnet_sel_dates)
 sys.exit()
 # select subset of columns + create datetime index
 fluxnet_sel = fluxnet_sel[['TIMESTAMP_START','TIMESTAMP_END', 'NEE_VUT_REF']]
