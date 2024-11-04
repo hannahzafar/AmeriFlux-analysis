@@ -71,23 +71,6 @@ fluxnet_sel_dates['TIMESTAMP_END'] = pd.to_datetime(fluxnet_sel_dates['TIMESTAMP
 fluxnet_sel_dates = local_std_to_utc_std(fluxnet_sel_dates,'TIMESTAMP_START',site_lat, site_lon)
 
 fluxnet_sel_dates = fluxnet_sel_dates.set_index('utc_time')
-# print(fluxnet_sel_dates.index)
-# sys.exit()
-
-
-# select subset of columns + create datetime index
-# fluxnet_sel = fluxnet_sel[['TIMESTAMP_START','TIMESTAMP_END', 'NEE_VUT_REF']]
-# fluxnet_sel .index = pd.to_datetime(fluxnet_sel ['TIMESTAMP_START'],format='%Y%m%d%H%M')
-# fluxnet_sel.index.names = ['time']
-
-
-# # Convert and resample
-# # FluxNet NEE_VUT_REF (umolCO2 m-2 s-1) to MiCASA (kgC m-2 s-1)
-# fluxnet_sel_final = fluxnet_sel['NEE_VUT_REF']*1e-6*12.01*1e-3
-
-# # resample to 3-hourly per MiCASA
-# fluxnet_sel_final = fluxnet_sel_final.resample('3h').mean()
-# fluxnet_sel_final.name = 'FluxNET NEE (kgC m-2 s-1)'
 
 # Create a list of unique dates from the site
 time = fluxnet_sel_dates.index
@@ -118,7 +101,7 @@ with xr.open_mfdataset(path_list)['NEE'] as ds:
 
     # Write to csv
     output_dir = 'output'
-    output_filename = f'{site_ID}_micasa' + '.csv'
+    output_filename = f'{site_ID}_micasa.csv'
     output_path = os.path.join(output_dir, output_filename)
 
     os.makedirs(output_dir, exist_ok=True)
