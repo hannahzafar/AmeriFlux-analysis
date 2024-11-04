@@ -118,7 +118,7 @@ with xr.open_mfdataset(path_list)['NEE'] as ds:
 
     # Write to csv
     output_dir = 'output'
-    output_filename = f'{site_ID}_micasa'
+    output_filename = f'{site_ID}_micasa' + '.csv'
     output_path = os.path.join(output_dir, output_filename)
 
     os.makedirs(output_dir, exist_ok=True)
