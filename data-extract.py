@@ -23,9 +23,8 @@ def get_single_match(pattern):
     else:
         raise ValueError(f"Multiple matches found: {matches}")
 
-tf = TimezoneFinder() 
-
 # Function to convert local standard time (no DLS) time to UTC
+tf = TimezoneFinder() 
 def local_std_to_utc_std(df,col,lat,lon):
     def convert_row(row):
         # Find the timezone for the given lat/lon
@@ -63,11 +62,16 @@ site_file = get_single_match(filepath + 'AMF_' + site_ID +
                             '_FLUXNET_SUBSET_*/AMF_' + site_ID + '_FLUXNET_SUBSET_HH_*.csv')
 fluxnet_sel = pd.read_csv(site_file)
 
-# Convert time to UTC
-fluxnet_sel = local_std_to_utc_std(fluxnet_sel,'TIMESTAMP_START',site_lat, site_lon)
+# select subset of columns + convert to datetime objects
+fluxnet_sel_simple = fluxnet_sel.loc[:,['TIMESTAMP_START','TIMESTAMP_END', 'NEE_VUT_REF']].copy()
+fluxnet_sel_simple['TIMESTAMP_START'] = pd.to_datetime(fluxnet_sel_simple ['TIMESTAMP_START'],format='%Y%m%d%H%M')
+fluxnet_sel_simple['TIMESTAMP_END'] = pd.to_datetime(fluxnet_sel_simple ['TIMESTAMP_END'],format='%Y%m%d%H%M')
 
-fluxnet_sel = fluxnet_sel.set_index('utc_time')
-print(fluxnet_sel)
+# Convert time to UTC
+fluxnet_sel_simple = local_std_to_utc_std(fluxnet_sel_simple,'TIMESTAMP_START',site_lat, site_lon)
+
+fluxnet_sel_simple = fluxnet_sel_simple.set_index('utc_time')
+print(fluxnet_sel_simple)
 sys.exit()
 # select subset of columns + create datetime index
 fluxnet_sel = fluxnet_sel[['TIMESTAMP_START','TIMESTAMP_END', 'NEE_VUT_REF']]
