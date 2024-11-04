@@ -93,8 +93,8 @@ fluxnet_sel_dates = fluxnet_sel_dates.set_index('utc_time')
 time = fluxnet_sel_dates.index
 dates_unique = list({dt.date() for dt in time})
 dates_unique.sort()
-print(dates_unique)
-sys.exit()
+# print(dates_unique)
+# sys.exit()
 
 # Extract micasa data
 data_path = 'micasa-data/daily-0.1deg-final/holding/3hrly/'
