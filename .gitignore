@@ -1,3 +1,4 @@
+*.out
 .ipynb_checkpoints/
 ameriflux-data/
 cartopy.ipynb
