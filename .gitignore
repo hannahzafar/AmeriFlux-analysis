@@ -1,6 +1,6 @@
 *.out
-.ipynb_checkpoint
+.ipynb_checkpoints
 cartopy.ipynb
-ameriflux-data/
-micasa-data/
-outputs/
+ameriflux-data
+micasa-data
+output
