@@ -85,15 +85,20 @@ if timedelta == 'DD':
 
 # Create a list of unique dates from the site
 time = fluxnet_sel_dates.index
-print(time)
-sys.exit()
 dates_unique = list({dt.date() for dt in time})
 dates_unique.sort()
 # print(dates_unique)
 # sys.exit()
 
 # Extract micasa data
-data_path = 'micasa-data/daily-0.1deg-final/holding/3hrly/'
+path = 'micasa-data/daily-0.1deg-final/holding/'
+if timedelta == 'HH':
+    data_path = path + '3hrly/'
+
+if timedelta == 'DD':
+    data_path = path + 'daily/'
+
+
 path_list = []
 
 for date in dates_unique:
@@ -102,6 +107,9 @@ for date in dates_unique:
     filename = 'MiCASA_v1_flux_*' + date.strftime('%Y%m%d') + '.nc4'
     filepath = get_single_match(os.path.join(data_path,f_year,f_month,filename))
     path_list.append(filepath)
+
+print(path_list)
+sys.exit()
 
 # open all paths
 with xr.open_mfdataset(path_list)['NEE'] as ds:
