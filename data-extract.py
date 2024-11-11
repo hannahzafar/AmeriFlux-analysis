@@ -80,7 +80,7 @@ if timedelta == 'HH':
 
 if timedelta == 'DD':
     fluxnet_sel_dates = fluxnet_sel.loc[:,['TIMESTAMP']].copy()
-    fluxnet_sel_dates['TIMESTAMP_START'] = pd.to_datetime(fluxnet_sel_dates['TIMESTAMP'],format='%Y%m%d')
+    fluxnet_sel_dates['TIMESTAMP'] = pd.to_datetime(fluxnet_sel_dates['TIMESTAMP'],format='%Y%m%d')
     fluxnet_sel_dates = fluxnet_sel_dates.set_index('TIMESTAMP')
 
 print(fluxnet_sel_dates)
