@@ -64,8 +64,7 @@ timedelta = 'DD'
 site_file = get_single_match(filepath + 'AMF_' + site_ID + 
                             '_FLUXNET_SUBSET_*/AMF_' + site_ID + 
                             '_FLUXNET_SUBSET_' + timedelta + '*.csv')
-print(site_file)
-sys.exit()
+# print(site_file)
 fluxnet_sel = pd.read_csv(site_file)
 
 # select subset of columns + convert to datetime objects
@@ -107,7 +106,7 @@ with xr.open_mfdataset(path_list)['NEE'] as ds:
 
     # Write to csv
     output_dir = 'output'
-    output_filename = f'{site_ID}_micasa.csv'
+    output_filename = f'{site_ID}_micasa_{timedelta}.csv'
     output_path = os.path.join(output_dir, output_filename)
 
     os.makedirs(output_dir, exist_ok=True)
