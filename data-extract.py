@@ -58,8 +58,15 @@ site_lon = ameriflux_meta.loc[ameriflux_meta['Site ID'] == site_ID, 'Longitude (
 # print(site_lat, site_lon)
 
 # Open site data and access time indices
+# Select depending on the time wanted:
+# timedelta = 'HH'
+timedelta = 'DD'
+
 site_file = get_single_match(filepath + 'AMF_' + site_ID + 
-                            '_FLUXNET_SUBSET_*/AMF_' + site_ID + '_FLUXNET_SUBSET_HH_*.csv')
+                            '_FLUXNET_SUBSET_*/AMF_' + site_ID + 
+                            '_FLUXNET_SUBSET_' + timedelta + '_*.csv')
+print(site_file)
+sys.exit()
 fluxnet_sel = pd.read_csv(site_file)
 
 # select subset of columns + convert to datetime objects
