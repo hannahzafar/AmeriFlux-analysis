@@ -73,17 +73,18 @@ if timedelta == 'HH':
     fluxnet_sel_dates = fluxnet_sel.loc[:,['TIMESTAMP_START','TIMESTAMP_END']].copy()
     fluxnet_sel_dates['TIMESTAMP_START'] = pd.to_datetime(fluxnet_sel_dates['TIMESTAMP_START'],format='%Y%m%d%H%M')
     fluxnet_sel_dates['TIMESTAMP_END'] = pd.to_datetime(fluxnet_sel_dates['TIMESTAMP_END'],format='%Y%m%d%H%M')
+    
+    # Convert time to UTC
+    fluxnet_sel_dates = local_std_to_utc_std(fluxnet_sel_dates,'TIMESTAMP_START',site_lat, site_lon)
+    fluxnet_sel_dates = fluxnet_sel_dates.set_index('utc_time')
 
 if timedelta == 'DD':
     fluxnet_sel_dates = fluxnet_sel.loc[:,['TIMESTAMP']].copy()
-    fluxnet_sel_dates['TIMESTAMP'] = pd.to_datetime(fluxnet_sel_dates['TIMESTAMP'],format='%Y%m%d')
+    fluxnet_sel_dates['TIMESTAMP_START'] = pd.to_datetime(fluxnet_sel_dates['TIMESTAMP'],format='%Y%m%d')
+    fluxnet_sel_dates = fluxnet_sel_dates.set_index('TIMESTAMP')
 
 print(fluxnet_sel_dates)
 sys.exit()
-# Convert time to UTC
-fluxnet_sel_dates = local_std_to_utc_std(fluxnet_sel_dates,'TIMESTAMP_START',site_lat, site_lon)
-
-fluxnet_sel_dates = fluxnet_sel_dates.set_index('utc_time')
 
 # Create a list of unique dates from the site
 time = fluxnet_sel_dates.index
