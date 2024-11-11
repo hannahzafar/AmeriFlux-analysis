@@ -107,9 +107,7 @@ for date in dates_unique:
     filename = 'MiCASA_v1_flux_*' + date.strftime('%Y%m%d') + '.nc4'
     filepath = get_single_match(os.path.join(data_path,f_year,f_month,filename))
     path_list.append(filepath)
-
-print(path_list)
-sys.exit()
+ 
 
 # open all paths
 with xr.open_mfdataset(path_list)['NEE'] as ds:
