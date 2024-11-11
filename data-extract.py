@@ -83,11 +83,10 @@ if timedelta == 'DD':
     fluxnet_sel_dates['TIMESTAMP'] = pd.to_datetime(fluxnet_sel_dates['TIMESTAMP'],format='%Y%m%d')
     fluxnet_sel_dates = fluxnet_sel_dates.set_index('TIMESTAMP')
 
-print(fluxnet_sel_dates)
-sys.exit()
-
 # Create a list of unique dates from the site
 time = fluxnet_sel_dates.index
+print(time)
+sys.exit()
 dates_unique = list({dt.date() for dt in time})
 dates_unique.sort()
 # print(dates_unique)
