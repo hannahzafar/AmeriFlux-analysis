@@ -42,7 +42,7 @@ def local_std_to_utc_std(df,col,lat,lon):
     return df
     
 
-# Input site ID as parse argument
+# Input site ID and time step used in averaging
 parser = argparse.ArgumentParser(description='User-specified parameters')
 parser.add_argument('site_ID', type=str,
                      help='FluxNet/AmeriFLUX Site Identifier (XX-XXX)')
