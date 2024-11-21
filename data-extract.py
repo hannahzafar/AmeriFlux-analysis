@@ -19,7 +19,7 @@ def get_single_match(pattern):
     if len(matches) == 1:
         return matches[0]
     elif len(matches) == 0:
-        raise ValueError(f"No matches found")
+        raise ValueError("No matches found")
     else:
         raise ValueError(f"Multiple matches found: {matches}")
 
@@ -46,8 +46,11 @@ def local_std_to_utc_std(df,col,lat,lon):
 parser = argparse.ArgumentParser(description='User-specified parameters')
 parser.add_argument('site_ID', type=str,
                      help='FluxNet/AmeriFLUX Site Identifier (XX-XXX)')
+parser.add_argument('timedelta', type=str, choices=['HH', 'DD'],
+                     help='Time step used in Fluxnet Average Calculation')
 args = parser.parse_args()
 site_ID = args.site_ID
+timedelta = args.timedelta
 
 # Open site ID metadata and extract lat/lon
 filepath = 'ameriflux-data/'
@@ -58,9 +61,6 @@ site_lon = ameriflux_meta.loc[ameriflux_meta['Site ID'] == site_ID, 'Longitude (
 # print(site_lat, site_lon)
 
 # Open site data and access time indices
-# timedelta = 'HH'
-timedelta = 'DD'
-
 site_file = get_single_match(filepath + 'AMF_' + site_ID + 
                             '_FLUXNET_SUBSET_*/AMF_' + site_ID + 
                             '_FLUXNET_SUBSET_' + timedelta + '*.csv')
