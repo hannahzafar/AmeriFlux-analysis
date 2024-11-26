@@ -42,15 +42,19 @@ def local_std_to_utc_std(df,col,lat,lon):
     return df
     
 
-# Input site ID and time step used in averaging
+# Arguments: Site ID, Fluxnet time step (HH or DD), and MiCASA variable to extract
 parser = argparse.ArgumentParser(description='User-specified parameters')
 parser.add_argument('site_ID', type=str,
                      help='FluxNet/AmeriFLUX Site Identifier (XX-XXX)')
 parser.add_argument('timedelta', type=str, choices=['HH', 'DD'],
                      help='Time step used in Fluxnet Average Calculation')
+parser.add_argument('micasa_var', type=str, choices=['NEE', 'NPP'],
+                     help='MiCASA variable desired for extraction')
+
 args = parser.parse_args()
 site_ID = args.site_ID
 timedelta = args.timedelta
+micasa_var = args.micasa_var
 
 # Open site ID metadata and extract lat/lon
 filepath = 'ameriflux-data/'
@@ -110,17 +114,17 @@ for date in dates_unique:
  
 
 # open all paths
-with xr.open_mfdataset(path_list)['NEE'] as ds:
+with xr.open_mfdataset(path_list)[micasa_var] as ds:
     # Select grid closest to selected site
     ds_subset = ds.sel(lon=site_lon, lat=site_lat, method='nearest')
 
     # Prep data for writing to csv
     ds_out = ds_subset.squeeze(dim=['lat','lon'],drop=True).to_dataframe()
-    ds_out = ds_out.rename(columns={'NEE': 'MiCASA NEE (kgC m-2 s-1)'})
+    ds_out = ds_out.rename(columns={micasa_var: f'MiCASA {micasa_var} ({test_ds[micasa_var].units})'})
 
     # Write to csv
     output_dir = 'output'
-    output_filename = f'{site_ID}_micasa_{timedelta}.csv'
+    output_filename = f'{site_ID}_micasa_{micasa_var}_{timedelta}.csv'
     output_path = os.path.join(output_dir, output_filename)
 
     os.makedirs(output_dir, exist_ok=True)
