@@ -120,7 +120,7 @@ with xr.open_mfdataset(path_list)[micasa_var] as ds:
 
     # Prep data for writing to csv
     ds_out = ds_subset.squeeze(dim=['lat','lon'],drop=True).to_dataframe()
-    ds_out = ds_out.rename(columns={micasa_var: f'MiCASA {micasa_var} ({test_ds[micasa_var].units})'})
+    ds_out = ds_out.rename(columns={micasa_var: f'MiCASA {micasa_var} ({ds_out[micasa_var].units})'})
 
     # Write to csv
     output_dir = 'output'
