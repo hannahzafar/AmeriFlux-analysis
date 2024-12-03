@@ -23,6 +23,10 @@ def get_single_match(pattern):
     else:
         raise ValueError(f"Multiple matches found: {matches}")
 
+# Define a custom argument type for a list of strings
+def list_of_strings(arg):
+    return arg.split(',')
+
 # Function to convert local standard time (no DLS) time to UTC
 tf = TimezoneFinder() 
 def local_std_to_utc_std(df,col,lat,lon):
@@ -48,13 +52,15 @@ parser.add_argument('site_ID', type=str,
                      help='FluxNet/AmeriFLUX Site Identifier (XX-XXX)')
 parser.add_argument('timedelta', type=str, choices=['HH', 'DD'],
                      help='Time step used in Fluxnet Average Calculation')
-parser.add_argument('micasa_var', type=str, choices=['NEE', 'NPP'],
-                     help='MiCASA variable desired for extraction')
+parser.add_argument('--variable-list', type=list_of_strings, 
+                     help='MiCASA variable(s) desired for extraction, pass --variable-list for a list of variables')
 
 args = parser.parse_args()
 site_ID = args.site_ID
 timedelta = args.timedelta
-micasa_var = args.micasa_var
+micasa_var = args.variable-list
+print(micasa_var)
+sys.exit()
 
 # Open site ID metadata and extract lat/lon
 filepath = 'ameriflux-data/'
