@@ -48,7 +48,7 @@ parser.add_argument('site_ID', type=str,
                      help='FluxNet/AmeriFLUX Site Identifier (XX-XXX)')
 parser.add_argument('timedelta', type=str, choices=['HH', 'DD'],
                      help='Time step used in Fluxnet Average Calculation')
-parser.add_argument('variable_list', type=str, nargs=+,
+parser.add_argument('variable_list', type=str, nargs='+',
                      help='MiCASA variable(s) desired for extraction')
 args = parser.parse_args()
 site_ID = args.site_ID
