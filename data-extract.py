@@ -110,8 +110,7 @@ for date in dates_unique:
     filepath = get_single_match(os.path.join(data_path,f_year,f_month,filename))
     path_list.append(filepath)
  
-path_list = path_list[0] # testing 
-# open all paths
+# path_list = path_list[0] # testing 
 with xr.open_mfdataset(path_list)[micasa_var_list] as ds:
     # Select grid closest to selected site
     ds_subset = ds.sel(lon=site_lon, lat=site_lat, method='nearest')
