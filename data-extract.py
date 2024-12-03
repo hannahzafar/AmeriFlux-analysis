@@ -105,12 +105,12 @@ path_list = []
 
 for date in dates_unique:
     f_year = str(date.year)
-    f_month = f"{date.month:02}"
+    f_month = f"{date.month:02}" 
     filename = 'MiCASA_v1_flux_*' + date.strftime('%Y%m%d') + '.nc4'
     filepath = get_single_match(os.path.join(data_path,f_year,f_month,filename))
     path_list.append(filepath)
  
-path_list = path_list[0] # testing
+path_list = path_list[0] # testing 
 # open all paths
 with xr.open_mfdataset(path_list)[micasa_var_list] as ds:
     # Select grid closest to selected site
