@@ -117,11 +117,14 @@ path_list = path_list[0] # testing
 with xr.open_mfdataset(path_list)[micasa_var_list] as ds:
     # Select grid closest to selected site
     ds_subset = ds.sel(lon=site_lon, lat=site_lat, method='nearest')
-    print(ds_subset)
-    sys.exit()
+    # print(ds_subset)
+    # sys.exit()
     
     # Prep data for writing to csv
     ds_out = ds_subset.squeeze(dim=['lat','lon'],drop=True).to_dataframe()
+    print(ds_out)
+    sys.exit()
+    
     ds_out = ds_out.rename(columns={micasa_var: f'MiCASA {micasa_var} ({ds_out[micasa_var].units})'})
 
     # Write to csv
