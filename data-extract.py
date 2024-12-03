@@ -121,7 +121,8 @@ with xr.open_mfdataset(path_list)[micasa_var_list] as ds:
 
     # Output dataset for each variable desired
     for micasa_var in micasa_var_list:
-        ds_out = ds_subset[micasa_var_list].to_dataframe()
+        ds_out = ds_subset[micasa_var].to_dataframe().rename(
+            columns={micasa_var: f'MiCASA {micasa_var} ({ds_subset[micasa_var].units})'})
         print(ds_out)
         # ds_out = ds_out[micasa_var].rename(
         #     columns={micasa_var: f'MiCASA {micasa_var} ({ds_out[micasa_var].units})'})
