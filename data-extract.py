@@ -49,12 +49,12 @@ parser.add_argument('site_ID', type=str,
 parser.add_argument('timedelta', type=str, choices=['HH', 'DD'],
                      help='Time step used in Fluxnet Average Calculation')
 parser.add_argument('variable_list', type=str, nargs='+',
-                     help='MiCASA variable(s) desired for extraction (list all wanted)')
+                     help='MiCASA variable(s) desired for extraction (separated by spaces)')
 args = parser.parse_args()
 site_ID = args.site_ID
 timedelta = args.timedelta
 micasa_var_list = args.variable_list
-print(micasa_var_list)
+# print(micasa_var_list)
 
 # Open site ID metadata and extract lat/lon
 filepath = 'ameriflux-data/'
@@ -72,7 +72,6 @@ site_file = get_single_match(filepath + 'AMF_' + site_ID +
 fluxnet_sel = pd.read_csv(site_file)
 
 # select subset of columns + convert to datetime objects
-
 if timedelta == 'HH':
     fluxnet_sel_dates = fluxnet_sel.loc[:,['TIMESTAMP_START','TIMESTAMP_END']].copy()
     fluxnet_sel_dates['TIMESTAMP_START'] = pd.to_datetime(fluxnet_sel_dates['TIMESTAMP_START'],format='%Y%m%d%H%M')
@@ -102,7 +101,6 @@ if timedelta == 'HH':
 if timedelta == 'DD':
     data_path = path + 'daily/'
 
-
 path_list = []
 
 for date in dates_unique:
@@ -117,13 +115,12 @@ path_list = path_list[0] # testing
 with xr.open_mfdataset(path_list)[micasa_var_list] as ds:
     # Select grid closest to selected site
     ds_subset = ds.sel(lon=site_lon, lat=site_lat, method='nearest')
-    # print(ds_subset)
-    # sys.exit()
     
     # Prep data for writing to csv
-    ds_out = ds_subset.squeeze(dim=['lat','lon'],drop=True).to_dataframe()
-    # print(ds_out)
-    # sys.exit()
+    ds_out = ds_subset.squeeze(dim=['lat','lon'],drop=True)
+    print(ds_subset)
+    sys.exit()
+    # Output dataset for each variable desired
     for micasa_var in micasa_var_list:
         ds_out = ds_out[micasa_var].rename(
             columns={micasa_var: f'MiCASA {micasa_var} ({ds_out[micasa_var].units})'})
