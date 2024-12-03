@@ -53,12 +53,13 @@ parser.add_argument('site_ID', type=str,
 parser.add_argument('timedelta', type=str, choices=['HH', 'DD'],
                      help='Time step used in Fluxnet Average Calculation')
 parser.add_argument('--variable-list', type=list_of_strings, 
-                     help='MiCASA variable(s) desired for extraction, pass --variable-list for a list of variables')
+                     help='MiCASA variable(s) desired for extraction, \
+                        pass --variable-list for a list of variables')
 
 args = parser.parse_args()
 site_ID = args.site_ID
 timedelta = args.timedelta
-micasa_var = args.variable-list
+micasa_var = args.variable_list
 print(micasa_var)
 sys.exit()
 
