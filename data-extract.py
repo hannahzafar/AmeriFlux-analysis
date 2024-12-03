@@ -49,12 +49,12 @@ parser.add_argument('site_ID', type=str,
 parser.add_argument('timedelta', type=str, choices=['HH', 'DD'],
                      help='Time step used in Fluxnet Average Calculation')
 parser.add_argument('variable_list', type=str, nargs='+',
-                     help='MiCASA variable(s) desired for extraction')
+                     help='MiCASA variable(s) desired for extraction (list all wanted)')
 args = parser.parse_args()
 site_ID = args.site_ID
 timedelta = args.timedelta
-micasa_var = args.variable_list
-print(micasa_var)
+micasa_var_list = args.variable_list
+# print(micasa_var)
 
 # Open site ID metadata and extract lat/lon
 filepath = 'ameriflux-data/'
@@ -112,11 +112,14 @@ for date in dates_unique:
     filepath = get_single_match(os.path.join(data_path,f_year,f_month,filename))
     path_list.append(filepath)
  
-
+path_list = path_list[0] # testing
 # open all paths
-with xr.open_mfdataset(path_list)[micasa_var] as ds:
+with xr.open_mfdataset(path_list) as ds:
     # Select grid closest to selected site
     ds_subset = ds.sel(lon=site_lon, lat=site_lat, method='nearest')
+    print(ds_subset)
+    sys.exit()
+
 
     # Prep data for writing to csv
     ds_out = ds_subset.squeeze(dim=['lat','lon'],drop=True).to_dataframe()
