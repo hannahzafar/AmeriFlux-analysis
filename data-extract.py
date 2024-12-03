@@ -54,7 +54,7 @@ args = parser.parse_args()
 site_ID = args.site_ID
 timedelta = args.timedelta
 micasa_var_list = args.variable_list
-# print(micasa_var)
+print(micasa_var_list)
 
 # Open site ID metadata and extract lat/lon
 filepath = 'ameriflux-data/'
