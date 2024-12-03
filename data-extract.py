@@ -114,12 +114,10 @@ for date in dates_unique:
  
 path_list = path_list[0] # testing
 # open all paths
-with xr.open_mfdataset(path_list,data_vars=micasa_var_list) as ds:
-    print(ds)
-    sys.exit()
-
+with xr.open_mfdataset(path_list) as ds:
     # Select grid closest to selected site
     ds_subset = ds.sel(lon=site_lon, lat=site_lat, method='nearest')
+    ds_subset = ds_subset[micasa_var_list]
     print(ds_subset)
     sys.exit()
     
