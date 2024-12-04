@@ -1,6 +1,5 @@
 *.out
 .ipynb_checkpoints
-cartopy.ipynb
 ameriflux-data
 micasa-data
 output
