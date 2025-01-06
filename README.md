@@ -1,3 +1,3 @@
 # AmeriFlux-analysis
 
-Analysis of AmeriFlux Net Ecosystem Exchange (NEE) estimates compared to the MiCASA land model.
+This repository stores multiple Jupyter notebooks (.ipynb) and python scripts (.py) files used in the analysis of the MiCASA land carbon model output against the FLUXNET Data Products.
