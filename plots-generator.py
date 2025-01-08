@@ -48,14 +48,18 @@ site_lon = fluxnet_meta.loc[fluxnet_meta['Site ID'] == site_ID, 'Longitude (degr
 sel_file = get_single_match(amer_filepath + 'AMF_' + site_ID + '_FLUXNET_SUBSET_*/AMF_' + site_ID + '_FLUXNET_SUBSET_' + timedelta + '_*.csv')
 fluxnet_sel = pd.read_csv(sel_file)
 
-############# Plot site location #############
+
+######### Create plots ###############
+fig, axs = plt.subplots(3, 1, figsize=(6, 8))
+
+# Plot site location (plot 0)
 proj=ccrs.PlateCarree()
 
 # subset CONUS
 min_lon, max_lon = -125, -65
 min_lat, max_lat = 25, 50
 
-fig, ax = plt.subplots(figsize=(8,6),subplot_kw= {'projection': proj});
+ax[0] = plt.subplot(3,1,1, projection=proj)
 ax.set_extent([min_lon, max_lon, min_lat, max_lat], crs=proj);
 ax.add_feature(cfeature.STATES)
 
