@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # Generate maps, NEE and NPP comparison plots for each site
+import argparse
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
