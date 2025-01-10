@@ -117,7 +117,7 @@ with xr.open_mfdataset(path_list)[micasa_var_list] as ds:
     
     # Prep data for writing to csv
     ds_subset = ds_subset.squeeze(dim=['lat','lon'],drop=True)
-    output_dir = 'output'
+    output_dir = 'intermediates'
     # Output dataset for each variable desired
     for micasa_var in micasa_var_list:
         ds_out = ds_subset[micasa_var].to_dataframe().rename(
