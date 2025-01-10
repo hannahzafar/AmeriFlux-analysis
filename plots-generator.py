@@ -131,11 +131,11 @@ axs[0].scatter(site_lon,site_lat,
 #                      )
 #            )
 
-NEE.plot(ax=axs[1],ylabel = 'NEE\n(kgC m$^{-2}$ s$^{-1}$)')
+NEE_ds.plot(ax=axs[1],ylabel = 'NEE\n(kgC m$^{-2}$ s$^{-1}$)')
 
 axs[2].set_visible(False)
 
-NPP.plot(ax=axs[3],ylabel = 'NPP\n(kgC m$^{-2}$ s$^{-1}$)')
+NPP_ds.plot(ax=axs[3],ylabel = 'NPP\n(kgC m$^{-2}$ s$^{-1}$)')
 
 date_format = mdates.DateFormatter('%b %Y')
 for i in range(1,4,2):
