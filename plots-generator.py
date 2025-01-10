@@ -139,3 +139,9 @@ for i in range(1,4,2):
     axs[i].xaxis.set_major_formatter(date_format)
     axs[i].set_xlabel('') 
 fig.suptitle(f'{site_ID}',y=0.9,fontsize=14)
+
+output_dir = 'plots'
+output_filename = f'{site_ID}_NEE_NPP.png'
+output_path = os.path.join(output_dir, output_filename)
+
+fig.savefig(output_path)
