@@ -4,11 +4,9 @@ import argparse
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 import pandas as pd
 import xarray as xr
-import hvplot.xarray
-import hvplot.pandas
-import geopandas as gpd
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 import datetime
