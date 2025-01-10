@@ -31,6 +31,7 @@ def get_single_match(pattern):
 parser = argparse.ArgumentParser(description='User-specified parameters')
 parser.add_argument('site_ID', type=str,
                      help='FluxNet/AmeriFLUX Site Identifier (XX-XXX)')
+args = parser.parse_args()
 site_ID = args.site_ID
 
 # Define misc variables
