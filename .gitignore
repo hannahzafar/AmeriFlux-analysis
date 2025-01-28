@@ -5,5 +5,4 @@ micasa-data
 output
 intermediates
 *.out
-batch-extract*.sh
 *.json
