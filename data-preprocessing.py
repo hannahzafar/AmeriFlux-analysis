@@ -42,19 +42,21 @@ def local_std_to_utc_std(df,col,lat,lon):
     return df
     
 
+### Modified for multiprocessing: for simplicity, hard coded timedelta and variable list
 # Arguments: Site ID, Fluxnet time step (HH or DD), and MiCASA variable to extract
 parser = argparse.ArgumentParser(description='User-specified parameters')
 parser.add_argument('site_ID', type=str,
                      help='FluxNet/AmeriFLUX Site Identifier (XX-XXX)')
-parser.add_argument('timedelta', type=str, choices=['HH', 'DD'],
-                     help='Time step used in Fluxnet Average Calculation')
-parser.add_argument('variable_list', type=str, nargs='+',
-                     help='MiCASA variable(s) desired for extraction (separated by spaces)')
+# parser.add_argument('timedelta', type=str, choices=['HH', 'DD'],
+#                      help='Time step used in Fluxnet Average Calculation')
+# parser.add_argument('variable_list', type=str, nargs='+',
+#                      help='MiCASA variable(s) desired for extraction (separated by spaces)')
 args = parser.parse_args()
 site_ID = args.site_ID
-timedelta = args.timedelta
-micasa_var_list = args.variable_list
-# print(micasa_var_list)
+# timedelta = args.timedelta
+# micasa_var_list = args.variable_list
+timedelta = 'DD'
+micasa_var_list = ['NEE', 'NPP']
 
 # Open site ID metadata and extract lat/lon
 filepath = 'ameriflux-data/'
@@ -110,7 +112,7 @@ for date in dates_unique:
     filepath = get_single_match(os.path.join(data_path,f_year,f_month,filename))
     path_list.append(filepath)
  
-# path_list = path_list[0] # testing 
+path_list = path_list[0] # testing 
 with xr.open_mfdataset(path_list)[micasa_var_list] as ds:
     # Select grid closest to selected site
     ds_subset = ds.sel(lon=site_lon, lat=site_lat, method='nearest')
@@ -128,5 +130,6 @@ with xr.open_mfdataset(path_list)[micasa_var_list] as ds:
         output_path = os.path.join(output_dir, output_filename)
 
         os.makedirs(output_dir, exist_ok=True)
-        ds_out.to_csv(output_path)
+        # ds_out.to_csv(output_path)
+        print(f"CSV written to: {output_path}")
 
