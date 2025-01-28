@@ -7,14 +7,14 @@ import subprocess
 import multiprocessing
 
 # Import list of all sites
-# amer_filepath = 'ameriflux-data/'
-# meta_file = amer_filepath + 'AmeriFlux-site-search-results-202410071335.tsv'
-# ameriflux_meta = pd.read_csv(meta_file, sep='\t')
-# fluxnet_meta = ameriflux_meta.loc[ameriflux_meta['AmeriFlux FLUXNET Data'] == 'Yes'] #use FLUXNET only
-# fluxnet_list = fluxnet_meta['Site ID'].to_list()
+amer_filepath = 'ameriflux-data/'
+meta_file = amer_filepath + 'AmeriFlux-site-search-results-202410071335.tsv'
+ameriflux_meta = pd.read_csv(meta_file, sep='\t')
+fluxnet_meta = ameriflux_meta.loc[ameriflux_meta['AmeriFlux FLUXNET Data'] == 'Yes'] #use FLUXNET only
+fluxnet_list = fluxnet_meta['Site ID'].to_list()
 
 # Testing
-fluxnet_list = ['US-A32', 'AR-TF1']
+# fluxnet_list = ['US-A32', 'AR-TF1']
 
 # Define variables 
 def run_script(arg_list): 
@@ -23,8 +23,6 @@ def run_script(arg_list):
     result = subprocess.run(cmd, capture_output=True, text=True)
     out = result.stdout.strip()
     return out
-
-# print(run_script('US-RGB'))
 
 
 # Function to run scripts in parallel using Pool
