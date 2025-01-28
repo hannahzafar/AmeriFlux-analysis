@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # Extract fluxnet and micasa data as csv for plotting
+
+# Import modules
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -58,6 +60,17 @@ site_ID = args.site_ID
 timedelta = 'DD'
 micasa_var_list = ['NEE', 'NPP']
 
+# Check if output file for the site already exists (quits if so)
+output_dir = 'intermediates'
+for micasa_var in micasa_var_list:
+    output_filename = f'{site_ID}_micasa_{micasa_var}_{timedelta}.csv'
+    output_path = os.path.join(output_dir, output_filename)
+    
+    # If the file exists, exit the script
+    if os.path.exists(output_path):
+        print(f"File for site {site_ID} already exists: {output_path}. Exiting.")
+        sys.exit()  # Exit the script immediately
+
 # Open site ID metadata and extract lat/lon
 filepath = 'ameriflux-data/'
 meta_file = filepath + 'AmeriFlux-site-search-results-202410071335.tsv'
@@ -112,7 +125,7 @@ for date in dates_unique:
     filepath = get_single_match(os.path.join(data_path,f_year,f_month,filename))
     path_list.append(filepath)
  
-path_list = path_list[0] # testing 
+# path_list = path_list[0] # testing 
 with xr.open_mfdataset(path_list)[micasa_var_list] as ds:
     # Select grid closest to selected site
     ds_subset = ds.sel(lon=site_lon, lat=site_lat, method='nearest')
@@ -130,6 +143,6 @@ with xr.open_mfdataset(path_list)[micasa_var_list] as ds:
         output_path = os.path.join(output_dir, output_filename)
 
         os.makedirs(output_dir, exist_ok=True)
-        # ds_out.to_csv(output_path)
+        ds_out.to_csv(output_path)
         print(f"CSV written to: {output_path}")
 
