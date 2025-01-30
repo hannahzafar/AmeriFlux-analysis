@@ -35,8 +35,7 @@ fluxnet_groups = split_into_groups(fluxnet_list,5)
 
 # Pick the one we want via sbatch input
 fluxnet_sel = fluxnet_groups[subbatch-1]
-print(fluxnet_sel)
-sys.exit()
+
 # Function to run script within script
 def run_script(arg_list): 
     script = "data-preprocessing.py"
@@ -57,5 +56,5 @@ def run_in_parallel(arg_list):
 
 
 # Run the script in parallel
-results = run_in_parallel(fluxnet_list)
+results = run_in_parallel(fluxnet_sel)
 print(results)
