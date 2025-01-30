@@ -4,5 +4,6 @@ ameriflux-data
 micasa-data
 output
 intermediates
+test-files
 *.out
 *.json
