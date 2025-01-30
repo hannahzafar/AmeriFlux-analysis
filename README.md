@@ -1,3 +1,3 @@
 # AmeriFlux-analysis
 
-This repository stores multiple Jupyter notebook (.ipynb) and python (.py) files used in the analysis of the MiCASA land carbon model output against the AmeriFlux FLUXNET Data Products.
+This repository stores Jupyter notebooks (.ipynb), python (.py), and bash (.slurm) files used in the analysis of the MiCASA land carbon model output against the AmeriFlux FLUXNET Data Products.
