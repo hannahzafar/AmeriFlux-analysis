@@ -13,8 +13,6 @@ parser = argparse.ArgumentParser(description='Subbatch number')
 parser.add_argument('subbatch', type=int)
 args = parser.parse_args()
 subbatch = args.subbatch
-print(subbatch)
-sys.exit()
 
 # Import list of all sites
 amer_filepath = 'ameriflux-data/'
@@ -36,8 +34,9 @@ def split_into_groups(list, n):
 fluxnet_groups = split_into_groups(fluxnet_list,5)
 
 # Pick the one we want via sbatch input
-fluxnet_sel = fluxnet_groups[input]
-
+fluxnet_sel = fluxnet_groups[subbatch-1]
+print(fluxnet_sel)
+sys.exit()
 # Function to run script within script
 def run_script(arg_list): 
     script = "data-preprocessing.py"
