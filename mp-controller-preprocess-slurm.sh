@@ -8,8 +8,8 @@ module purge
 module load python/GEOSpyD/Min24.4.0-0_py3.12
 
 
-$NOBACKUP/ghgc/micasa/AmeriFlux-analysis/mp_controller.py 1
-$NOBACKUP/ghgc/micasa/AmeriFlux-analysis/mp_controller.py 2
-$NOBACKUP/ghgc/micasa/AmeriFlux-analysis/mp_controller.py 3
-$NOBACKUP/ghgc/micasa/AmeriFlux-analysis/mp_controller.py 4
-$NOBACKUP/ghgc/micasa/AmeriFlux-analysis/mp_controller.py 5
+$NOBACKUP/ghgc/micasa/AmeriFlux-analysis/mp-controller-preprocessing.py 1
+$NOBACKUP/ghgc/micasa/AmeriFlux-analysis/mp-controller-preprocessing.py 2
+$NOBACKUP/ghgc/micasa/AmeriFlux-analysis/mp-controller-preprocessing.py 3
+$NOBACKUP/ghgc/micasa/AmeriFlux-analysis/mp-controller-preprocessing.py 4
+$NOBACKUP/ghgc/micasa/AmeriFlux-analysis/mp-controller-preprocessing.py 5
