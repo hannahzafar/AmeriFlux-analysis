@@ -1,9 +1,7 @@
 *.out
 .ipynb_checkpoints
+_old
 ameriflux-data
 micasa-data
-output
 intermediates
-test-files
-*.out
-*.json
+virtualizarr
