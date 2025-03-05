@@ -12,6 +12,7 @@ import cartopy.feature as cfeature
 import datetime
 import glob
 import os
+import sys
 
 ######### functions ############
 # Define a single match file location function
