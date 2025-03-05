@@ -37,6 +37,18 @@ amer_filepath = 'ameriflux-data/'
 mic_filepath = 'intermediates/'
 timedelta = 'DD'
 
+
+############## Check if run is necessary #############
+# Check if output file for the site already exists (quits if so)
+output_dir = 'plots'
+output_filename = f'{site_ID}_NEE_NPP.png'
+output_path = os.path.join(output_dir, output_filename)
+    
+# If the file exists, exit the script
+if os.path.exists(output_path):
+    print(f"File for site {site_ID} already exists: {output_path}. Exiting.")
+    sys.exit()  # Exit the script immediately
+
 #################### Import Flux Data ##############################
 # Import site metadata csv
 meta_file = amer_filepath + 'AmeriFlux-site-search-results-202410071335.tsv'
@@ -123,11 +135,7 @@ axs[0].scatter(site_lon,site_lat,
        color='yellow',
        edgecolor='black',
                zorder=3)
-# axs[0].annotate(site_ID, (site_lon + 2,site_lat+2),
-#             color='red',
-#             bbox=dict(facecolor='white',edgecolor='None', pad=0.1,
-#                      )
-#            )
+
 
 NEE_ds.plot(ax=axs[1],ylabel = 'NEE\n(kgC m$^{-2}$ s$^{-1}$)')
 
@@ -141,8 +149,6 @@ for i in range(1,4,2):
     axs[i].set_xlabel('') 
 fig.suptitle(f'{site_ID}',y=0.9,fontsize=14)
 
-output_dir = 'plots'
-output_filename = f'{site_ID}_NEE_NPP.png'
 output_path = os.path.join(output_dir, output_filename)
 
 fig.savefig(output_path)
