@@ -46,9 +46,11 @@ output_filename = f'{site_ID}_NEE_NPP.png'
 output_path = os.path.join(output_dir, output_filename)
     
 # If the file exists, exit the script
+'''
 if os.path.exists(output_path):
     print(f"File for site {site_ID} already exists: {output_path}. Exiting.")
     sys.exit()  # Exit the script immediately
+'''
 
 #################### Import Flux Data ##############################
 # Import site metadata csv
@@ -105,34 +107,40 @@ NPP_ds = pd.DataFrame()
 NPP_ds['MiCASA'] = micasa_ds['NPP (kgC m-2 s-1)']
 NPP_ds['FluxNet DT NPP/2'] = fluxnet_final['GPP (DT) (kgC m-2 s-1)']/2
 
-## Subsetting? 
-# NPP_ds = NPP_ds[NPP_ds.index >= '2018-01-01']
 
 ######### Create plots ########################
 # Create a subplot grid with specific width ratios
 fig, axs = plt.subplots(4, 1, 
                          # subplot_kw={'projection': proj}, 
-                         gridspec_kw={'height_ratios': [1, 2,0.25,2],
+                         gridspec_kw={'height_ratios': [1.2, 2,0.25,2],
                                       'hspace': 0.01},
                          figsize=(10, 12)) 
 
 # Define the map projection
 proj = ccrs.PlateCarree()
 
-# Subset CONUS
-min_lon, max_lon = -125, -65
-min_lat, max_lat = 25, 50
+# Extract site lat/lon
+site_lat = ameriflux_meta.loc[ameriflux_meta['Site ID'] == site_ID, 'Latitude (degrees)'].values
+site_lon = ameriflux_meta.loc[ameriflux_meta['Site ID'] == site_ID, 'Longitude (degrees)'].values
+
+# Pick map location based on location of site
+if site_lat >= 20:
+    # North America extents
+    min_lon, max_lon = -170, -57
+    min_lat, max_lat = 25, 74
+
+else:
+    # South America extents
+    min_lon, max_lon = -90, -30
+    min_lat, max_lat = -60, 12
 
 axs[0].axis('off')
 axs[0] = plt.subplot(4, 1, 1, projection=proj,frameon=False)
 axs[0].set_extent([min_lon, max_lon, min_lat, max_lat], crs=ccrs.PlateCarree())
-axs[0].add_feature(cfeature.STATES)
-
-site_lat = ameriflux_meta.loc[ameriflux_meta['Site ID'] == site_ID, 'Latitude (degrees)'].values
-site_lon = ameriflux_meta.loc[ameriflux_meta['Site ID'] == site_ID, 'Longitude (degrees)'].values
+axs[0].coastlines()
 axs[0].scatter(site_lon,site_lat,
        marker='*', 
-       s=500,
+       s=300,
        color='yellow',
        edgecolor='black',
                zorder=3)
