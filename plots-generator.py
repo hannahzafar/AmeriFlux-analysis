@@ -105,7 +105,7 @@ NEE_ds['FluxNet'] = fluxnet_final['NEE (kgC m-2 s-1)']
 ## NPP
 NPP_ds = pd.DataFrame()
 NPP_ds['MiCASA'] = micasa_ds['NPP (kgC m-2 s-1)']
-NPP_ds['FluxNet DT NPP/2'] = fluxnet_final['GPP (DT) (kgC m-2 s-1)']/2
+NPP_ds['FluxNet DT GPP/2'] = fluxnet_final['GPP (DT) (kgC m-2 s-1)']/2
 
 
 ######### Create plots ########################
