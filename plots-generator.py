@@ -76,14 +76,16 @@ fluxnet_final = pd.DataFrame()
 ## FluxNet NEE_VUT_REF in DD (gC m-2 d-1) to MiCASA (kgC m-2 s-1)
 fluxnet_final['NEE (kgC m-2 s-1)'] = fluxnet_sel_sub['NEE_VUT_REF']*1e-3/86400
 
-## Mask bad NEE QC values
-## for daily FluxNet data, QC is fraction between 0-1, indicating percentage of measured and good quality gapfill data
-fluxnet_final['NEE (kgC m-2 s-1)'] = fluxnet_final['NEE (kgC m-2 s-1)'].mask(fluxnet_sel_sub['NEE_VUT_REF_QC'] < 1, np.nan)
-
 # GPP
 ## FluxNet GPP in DD (gC m-2 d-1) to MiCASA (kgC m-2 s-1)
 fluxnet_final['GPP (DT) (kgC m-2 s-1)'] = fluxnet_sel_sub['GPP_DT_VUT_REF']*1e-3/86400
 fluxnet_final['GPP (NT) (kgC m-2 s-1)'] = fluxnet_sel_sub['GPP_NT_VUT_REF']*1e-3/86400
+
+## Mask bad QC values for NEE and GPP
+## for daily FluxNet data, QC is fraction between 0-1, indicating percentage of measured and good quality gapfill data
+fluxnet_final['NEE (kgC m-2 s-1)'] = fluxnet_final['NEE (kgC m-2 s-1)'].mask(fluxnet_sel_sub['NEE_VUT_REF_QC'] < 1, np.nan)
+fluxnet_final['GPP (DT) (kgC m-2 s-1)'] = fluxnet_final['GPP (DT) (kgC m-2 s-1)'].mask(fluxnet_sel_sub['NEE_VUT_REF_QC'] < 1, np.nan)
+fluxnet_final['GPP (NT) (kgC m-2 s-1)'] = fluxnet_final['GPP (NT) (kgC m-2 s-1)'].mask(fluxnet_sel_sub['NEE_VUT_REF_QC'] < 1, np.nan)
 
 ############ Import Preprocessed Micasa Data ################
 micasa_ds = pd.DataFrame()
