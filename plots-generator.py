@@ -40,6 +40,27 @@ def get_single_match(pattern):
         raise ValueError(f"No matches found")
     else:
         raise ValueError(f"Multiple matches found: {matches}")
+
+def replace_outliers_with_nan(df, column):
+    """Replaces outliers in a DataFrame column with NaN.
+
+    Args:
+        df (pd.DataFrame): The DataFrame.
+        column (str): The column name to check for outliers.
+
+    Returns:
+        pd.DataFrame: The DataFrame with outliers replaced by NaN.
+    """
+    Q1 = df[column].quantile(0.25)
+    Q3 = df[column].quantile(0.75)
+    IQR = Q3 - Q1
+
+    lower_bound = Q1 - 1.5 * IQR
+    upper_bound = Q3 + 1.5 * IQR
+
+    df[column] = df[column].mask((df[column] < lower_bound) | (df[column] > upper_bound), np.nan)
+    return df
+    
 ######### input arguments ############
 # Input site ID
 parser = argparse.ArgumentParser(description='User-specified parameters')
@@ -100,7 +121,9 @@ fluxnet_final['GPP (NT) (kgC m-2 s-1)'] = fluxnet_sel_sub['GPP_NT_VUT_REF']*1e-3
 ## for daily FluxNet data, QC is fraction between 0-1, indicating percentage of measured and good quality gapfill data
 fluxnet_final['NEE (kgC m-2 s-1)'] = fluxnet_final['NEE (kgC m-2 s-1)'].mask(fluxnet_sel_sub['NEE_VUT_REF_QC'] < 1, np.nan)
 fluxnet_final['GPP (DT) (kgC m-2 s-1)'] = fluxnet_final['GPP (DT) (kgC m-2 s-1)'].mask(fluxnet_sel_sub['NEE_VUT_REF_QC'] < 1, np.nan)
-fluxnet_final['GPP (NT) (kgC m-2 s-1)'] = fluxnet_final['GPP (NT) (kgC m-2 s-1)'].mask(fluxnet_sel_sub['NEE_VUT_REF_QC'] < 1, np.nan)
+
+# Mask GPP outliers
+fluxnet_final = replace_outliers_with_nan(fluxnet_final,'GPP (DT) (kgC m-2 s-1)')
 
 ############ Import Preprocessed Micasa Data ################
 micasa_ds = pd.DataFrame()
