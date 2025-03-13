@@ -17,6 +17,22 @@ import sys
 ######### functions ############
 # Define a single match file location function
 def get_single_match(pattern):
+    """
+    Find exactly one file that matches the glob pattern.
+    
+    Uses glob.glob to find files matching the given pattern. Returns the single
+    match if exactly one is found. Raises ValueError if no matches or multiple
+    matches are found.
+    
+    Args:
+        pattern (str): A glob pattern to search for files
+        
+    Returns:
+        str: Path to the single matched file
+        
+    Raises:
+        ValueError: If zero or multiple matches are found
+    """
     matches = glob.glob(pattern)
     if len(matches) == 1:
         return matches[0]
@@ -24,7 +40,6 @@ def get_single_match(pattern):
         raise ValueError(f"No matches found")
     else:
         raise ValueError(f"Multiple matches found: {matches}")
-
 ######### input arguments ############
 # Input site ID
 parser = argparse.ArgumentParser(description='User-specified parameters')
