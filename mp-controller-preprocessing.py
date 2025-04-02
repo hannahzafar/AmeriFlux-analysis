@@ -40,8 +40,8 @@ fluxnet_sel = fluxnet_groups[subbatch-1]
 def run_script(arg_list): 
     script = "data-preprocessing.py"
     cmd = ["python", script, arg_list]
-    result = subprocess.run(cmd, capture_output=True, text=True)
-    out = result.stdout.strip()
+    result = subprocess.run(cmd, capture_output=True, text=True) #Check if it actually errors, check = True
+    out = result.stdout.strip() # stdout vs stderr
     return out
 
 # Function to run scripts in parallel using Pool
