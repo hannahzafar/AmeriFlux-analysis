@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #SBATCH --account=s1460
 #SBATCH --time=0:30:00
-
+# Multiprocessing of plot generation on compute node (I honestly don't think this is even necessary)
 # Arg1 = 1-5 groups in list
 
 module purge
