@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #SBATCH --account=s1460
 #SBATCH --time=1:30:00
-
+# Preprocess all sites via parallel processing on a compute node
 # Arg1 = 1-5 groups in list
 
 module purge
