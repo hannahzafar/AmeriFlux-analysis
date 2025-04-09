@@ -42,6 +42,7 @@ def run_script(arg_list):
     cmd = ["python", script, arg_list]
     try:
         result = subprocess.run(cmd, capture_output=True, text=True, check=True) # check=True will crash if error
+        print(result.stdout.strip())
         return result.stdout.strip() 
     except subprocess.CalledProcessError as e:
         print(f"Error running command: {' '.join(cmd)}")
@@ -62,4 +63,4 @@ def run_in_parallel(arg_list):
 
 # Run the script in parallel
 results = run_in_parallel(fluxnet_sel)
-print(results)
+#print(results)
