@@ -21,7 +21,7 @@ def get_single_match(pattern):
     if len(matches) == 1:
         return matches[0]
     elif len(matches) == 0:
-        raise ValueError("No matches found")
+        raise ValueError(f"No matches found for: {pattern}")
     else:
         raise ValueError(f"Multiple matches found: {matches}")
 
