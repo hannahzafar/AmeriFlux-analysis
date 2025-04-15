@@ -124,25 +124,20 @@ fluxnet_final['GPP (DT) (kgC m-2 s-1)'] = fluxnet_final['GPP (DT) (kgC m-2 s-1)'
 fluxnet_final = replace_outliers_with_nan(fluxnet_final,'GPP (DT) (kgC m-2 s-1)')
 
 ############ Import Preprocessed Micasa Data ################
-micasa_ds = pd.DataFrame()
-for variable in ['NEE', 'NPP']:
-    filename = f'{site_ID}_micasa_{variable}_{timedelta}.csv'
-    path = os.path.join(mic_filepath, filename)
-    ds = pd.read_csv(path,index_col=0)
-    ds.index = pd.to_datetime(ds.index)
-    varname = variable + ' (kgC m-2 s-1)'
-    micasa_ds[varname] = ds
+filename = f'{site_ID}_micasa_{timedelta}.csv'
+path = os.path.join(mic_filepath, filename)
+micasa_ds = pd.read_csv(path,index_col=0, parse_dates=True)
 
 ############## Append datasets #########################
 # Make clean dataframe and append together
 ## NEE
 NEE_ds = pd.DataFrame()
-NEE_ds['MiCASA'] = micasa_ds['NEE (kgC m-2 s-1)']
+NEE_ds['MiCASA'] = micasa_ds['MiCASA NEE (kg m-2 s-1)']
 NEE_ds['FluxNet'] = fluxnet_final['NEE (kgC m-2 s-1)']
 
 ## NPP
 NPP_ds = pd.DataFrame()
-NPP_ds['MiCASA'] = micasa_ds['NPP (kgC m-2 s-1)']
+NPP_ds['MiCASA'] = micasa_ds['MiCASA NPP (kg m-2 s-1)']
 NPP_ds['FluxNet DT GPP/2'] = fluxnet_final['GPP (DT) (kgC m-2 s-1)']/2
 
 
