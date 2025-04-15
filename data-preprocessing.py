@@ -65,7 +65,7 @@ micasa_var_list = ['NEE', 'NPP']
 # Check if output file for the site already exists (quits if so)
 output_dir = 'intermediates'
 for micasa_var in micasa_var_list:
-    output_filename = f'{site_ID}_micasa_{micasa_var}_{timedelta}.csv'
+    output_filename = f'{site_ID}_micasa_{timedelta}.csv'
     output_path = os.path.join(output_dir, output_filename)
     
     # If the file exists, exit the script
@@ -128,23 +128,26 @@ for date in dates_unique:
     path_list.append(filepath)
  
 # path_list = path_list[0] # testing 
+# Create an empty dataframe for output
+ds_out = pd.DataFrame()
+
 with xr.open_mfdataset(path_list)[micasa_var_list] as ds:
     # Select grid closest to selected site
     ds_subset = ds.sel(lon=site_lon, lat=site_lat, method='nearest')
     
     # Prep data for writing to csv
     ds_subset = ds_subset.squeeze(dim=['lat','lon'],drop=True)
-    output_dir = 'intermediates'
-    # Output dataset for each variable desired
-    for micasa_var in micasa_var_list:
-        ds_out = ds_subset[micasa_var].to_dataframe().rename(
-            columns={micasa_var: f'MiCASA {micasa_var} ({ds_subset[micasa_var].units})'})
-        # print(ds_out)
-        # Write to csv
-        output_filename = f'{site_ID}_micasa_{micasa_var}_{timedelta}.csv'
-        output_path = os.path.join(output_dir, output_filename)
 
-        os.makedirs(output_dir, exist_ok=True)
-        ds_out.to_csv(output_path)
-        print(f"CSV written to: {output_path}")
+    # Output a single file for each site with all variables
+    for micasa_var in micasa_var_list:
+        ds_out[micasa_var] = ds_subset[micasa_var].to_dataframe()
+        ds_out.rename(columns={micasa_var: f'MiCASA {micasa_var} ({ds_subset[micasa_var].units})'}, inplace=True)
+    # Write to csv
+    output_dir = 'intermediates'
+    output_filename = f'{site_ID}_micasa_{timedelta}.csv'
+    output_path = os.path.join(output_dir, output_filename)
+
+    os.makedirs(output_dir, exist_ok=True)
+    ds_out.to_csv(output_path)
+    print(f"CSV written to: {output_path}")
 
