@@ -111,7 +111,7 @@ dates_unique.sort()
 # sys.exit()
 
 # Extract micasa data
-path = 'micasa-data/daily-0.1deg-final/holding/'
+path = os.environ.get("NOBACKUP") + '/ghgc/micasa/micasa-data/daily-0.1deg-final/holding/'
 if timedelta == 'HH':
     data_path = path + '3hrly/'
 
