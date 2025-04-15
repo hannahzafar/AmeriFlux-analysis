@@ -82,11 +82,9 @@ output_filename = f'{site_ID}_NEE_NPP.png'
 output_path = os.path.join(output_dir, output_filename)
     
 # If the file exists, exit the script
-'''
 if os.path.exists(output_path):
     print(f"File for site {site_ID} already exists: {output_path}. Exiting.")
     sys.exit()  # Exit the script immediately
-'''
 
 #################### Import Flux Data ##############################
 # Import site metadata csv
