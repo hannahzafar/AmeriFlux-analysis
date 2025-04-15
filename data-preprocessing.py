@@ -55,6 +55,8 @@ parser.add_argument('site_ID', type=str,
 #                      help='MiCASA variable(s) desired for extraction (separated by spaces)')
 args = parser.parse_args()
 site_ID = args.site_ID
+
+# Removed user inputs and hard coded variables
 # timedelta = args.timedelta
 # micasa_var_list = args.variable_list
 timedelta = 'DD'
