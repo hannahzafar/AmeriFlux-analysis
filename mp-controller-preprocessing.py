@@ -61,6 +61,7 @@ def run_in_parallel(arg_list):
     return results
 
 
-# Run the script in parallel
-results = run_in_parallel(fluxnet_sel)
-#print(results)
+# Run the script in parallel (interactive safe)
+if __name__ == "__main__":
+    results = run_in_parallel(fluxnet_sel)
+    #print(results)
