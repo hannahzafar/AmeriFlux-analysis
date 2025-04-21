@@ -7,6 +7,7 @@ import subprocess
 import multiprocessing
 import argparse
 import sys
+import os
 
 # Parse input args
 parser = argparse.ArgumentParser(description='Subbatch number')
