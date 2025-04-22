@@ -3,8 +3,6 @@
 #SBATCH --output=slurm-%j.out      # Capture both stdout and stderr
 #SBATCH --error=slurm-%j.out       # Same log file for errors
 #SBATCH --account=s1460
-#SBATCH --ntasks=1                 # Explicitly define tasks + CPUs for parallel processing
-#SBATCH --cpus-per-task=8
 #SBATCH --time=2:30:00
 
 # Preprocess all sites via parallel processing on a compute node
