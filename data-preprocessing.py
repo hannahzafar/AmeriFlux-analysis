@@ -124,8 +124,11 @@ for date in dates_unique:
     f_year = str(date.year)
     f_month = f"{date.month:02}" 
     filename = 'MiCASA_v1_flux_*' + date.strftime('%Y%m%d') + '.nc4'
-    filepath = get_single_match(os.path.join(data_path,f_year,f_month,filename))
-    path_list.append(filepath)
+    try: #Test if the micasa file exists for that time stamp
+        filepath = get_single_match(os.path.join(data_path,f_year,f_month,filename))
+        path_list.append(filepath)
+    except ValueError as e:
+        continue # Skip missing MiCASA data
  
 # path_list = path_list[0] # testing 
 # Create an empty dataframe for output
