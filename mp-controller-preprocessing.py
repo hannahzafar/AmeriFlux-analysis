@@ -32,20 +32,10 @@ def run_script(arg_list):
         print("STDERR:", e.stderr)
         return f"FAILED: {arg_list}"
 
-def get_pool_size():
-    slurm_cpus = os.environ.get("SLURM_CPUS_PER_TASK")
-    if slurm_cpus:
-        return int(slurm_cpus)
-    return multiprocessing.cpu_count()
-
 # Function to run scripts in parallel using Pool
 def run_in_parallel(arg_list):
-    # Define the pool size (number of processes)
-    pool_size = get_pool_size()
-    print(f"Using pool size: {pool_size}")
-    with multiprocessing.Pool(pool_size) as pool:
-        # Use map to run `run_script` across the arg_list
-        results = pool.map(run_script, arg_list)
+    with multiprocessing.Pool() as pool: # should be fine to not specify pool size as long as no mem issues
+        results = pool.map(run_script, arg_list) # Use map to run `run_script` across the arg_list
     
     return results
 
