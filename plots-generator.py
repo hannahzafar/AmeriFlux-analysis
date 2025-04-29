@@ -203,3 +203,4 @@ fig.suptitle(f'{site_ID}',y=0.9,fontsize=14)
 output_path = os.path.join(output_dir, output_filename)
 
 fig.savefig(output_path)
+print(f"Plot written to: {output_path}")
