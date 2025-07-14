@@ -1,6 +1,7 @@
 # FLUXNET and Land Model Comparison Analysis
 
 This repository includes all files used in the analysis of the FLUXNET observations to NASA GMAO land models.
+FLUXNET observations are constrainted to the AmeriFlux FLUXNET networks located in North, Central and South America. Data is available for download at: https://ameriflux.lbl.gov/login/?redirect_to=/data/download-data/. Users must create an account to access.
 
 Jupyter-notebooks/ serves as a Sandbox for testing.
 
