@@ -1,0 +1,11 @@
+[project]
+authors = ["Hannah Zafar <hannah.zafar@nasa.gov>"]
+channels = ["conda-forge"]
+description = "Add a short description here"
+name = "FLUXNET-Model-comparison"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
