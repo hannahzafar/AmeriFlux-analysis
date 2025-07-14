@@ -34,6 +34,7 @@ def get_single_match(pattern):
     else:
         raise ValueError(f"Multiple matches found: {matches}")
 
+#FIX: I'm not sure if I should throw away outliers for this?
 '''
 def replace_outliers_with_nan(df, column):
     """Replaces outliers in a DataFrame column with NaN.
