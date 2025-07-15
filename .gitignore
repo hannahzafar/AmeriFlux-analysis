@@ -5,3 +5,7 @@ ameriflux-data
 intermediates
 plots
 __pycache__
+
+# pixi environments
+.pixi
+*.egg-info
