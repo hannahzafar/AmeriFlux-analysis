@@ -2,9 +2,7 @@
 # Wrapper script to run plots-generator.py for all the sites in the Fluxnet list 
 # (without multiprocessing, not necessary due to performance)
 
-import numpy as np
 import pandas as pd
-import subprocess
 import importlib
 
 # Import workaround for file with dashes in name

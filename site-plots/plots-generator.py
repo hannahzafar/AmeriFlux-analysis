@@ -2,14 +2,10 @@
 # Generate maps, NEE and NPP comparison plots for each site
 import argparse
 import numpy as np
-import matplotlib as mpl
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import pandas as pd
-import xarray as xr
 import cartopy.crs as ccrs
-import cartopy.feature as cfeature
-import datetime
 import glob
 import os
 import sys
@@ -37,7 +33,7 @@ def get_single_match(pattern):
     if len(matches) == 1:
         return matches[0]
     elif len(matches) == 0:
-        raise ValueError(f"No matches found")
+        raise ValueError("No matches found")
     else:
         raise ValueError(f"Multiple matches found: {matches}")
 
