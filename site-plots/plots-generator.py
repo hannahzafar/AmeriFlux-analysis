@@ -70,8 +70,8 @@ args = parser.parse_args()
 site_ID = args.site_ID
 
 # Define misc variables
-amer_filepath = 'ameriflux-data/'
-mic_filepath = 'intermediates/'
+amer_filepath = '../ameriflux-data/'
+mic_filepath = 'preprocess-data/intermediates/'
 timedelta = 'DD'
 
 
