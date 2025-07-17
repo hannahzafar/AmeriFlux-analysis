@@ -1,15 +1,11 @@
 #!/usr/bin/env python
 # Extract fluxnet and micasa data as csv for plotting
 
-# Import modules
-import numpy as np
-import matplotlib as mpl
-import matplotlib.pyplot as plt
 import pandas as pd
 import xarray as xr
 import glob
 import argparse
-import sys
+# import sys
 import os
 import pytz
 from timezonefinder import TimezoneFinder
@@ -39,10 +35,10 @@ def local_std_to_utc_std(df,col,lat,lon):
             return standard_time.astimezone(pytz.utc)
         else:
             raise ValueError('Cannot determine site time zone')
-            
+ 
     df['utc_time'] = df.apply(convert_row,axis=1)
     return df
-    
+
 
 ### Modified for multiprocessing: for simplicity, hard coded timedelta and variable list
 # Arguments: Site ID, Fluxnet time step (HH or DD), and MiCASA variable to extract
@@ -67,7 +63,7 @@ output_dir = 'intermediates'
 for micasa_var in micasa_var_list:
     output_filename = f'{site_ID}_micasa_{timedelta}.csv'
     output_path = os.path.join(output_dir, output_filename)
-    
+ 
     # If the file exists, exit the script
     if os.path.exists(output_path):
         print(f"File for site {site_ID} already exists: {output_path}. Exiting.")
@@ -93,7 +89,7 @@ if timedelta == 'HH':
     fluxnet_sel_dates = fluxnet_sel.loc[:,['TIMESTAMP_START','TIMESTAMP_END']].copy()
     fluxnet_sel_dates['TIMESTAMP_START'] = pd.to_datetime(fluxnet_sel_dates['TIMESTAMP_START'],format='%Y%m%d%H%M')
     fluxnet_sel_dates['TIMESTAMP_END'] = pd.to_datetime(fluxnet_sel_dates['TIMESTAMP_END'],format='%Y%m%d%H%M')
-    
+
     # Convert time to UTC
     fluxnet_sel_dates = local_std_to_utc_std(fluxnet_sel_dates,'TIMESTAMP_START',site_lat, site_lon)
     fluxnet_sel_dates = fluxnet_sel_dates.set_index('utc_time')
@@ -127,7 +123,7 @@ for date in dates_unique:
     try: #Test if the micasa file exists for that time stamp
         filepath = get_single_match(os.path.join(data_path,f_year,f_month,filename))
         path_list.append(filepath)
-    except ValueError as e:
+    except ValueError:
         continue # Skip missing MiCASA data
  
 # path_list = path_list[0] # testing 
@@ -137,7 +133,7 @@ ds_out = pd.DataFrame()
 with xr.open_mfdataset(path_list)[micasa_var_list] as ds:
     # Select grid closest to selected site
     ds_subset = ds.sel(lon=site_lon, lat=site_lat, method='nearest')
-    
+ 
     # Prep data for writing to csv
     ds_subset = ds_subset.squeeze(dim=['lat','lon'],drop=True)
 
