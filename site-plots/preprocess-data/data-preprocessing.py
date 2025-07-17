@@ -74,7 +74,7 @@ for micasa_var in micasa_var_list:
         sys.exit()  # Exit the script immediately
 
 # Open site ID metadata and extract lat/lon
-filepath = 'ameriflux-data/'
+filepath = '../../ameriflux-data/'
 meta_file = filepath + 'AmeriFlux-site-search-results-202410071335.tsv'
 ameriflux_meta = pd.read_csv(meta_file, sep='\t')
 site_lat = ameriflux_meta.loc[ameriflux_meta['Site ID'] == site_ID, 'Latitude (degrees)'].values
@@ -111,7 +111,7 @@ dates_unique.sort()
 # sys.exit()
 
 # Extract micasa data
-path = os.environ.get("NOBACKUP") + '/ghgc/micasa/micasa-data/daily-0.1deg-final/holding/'
+path = '/discover/nobackup/hzafar/ghgc/micasa/micasa-data/'
 if timedelta == 'HH':
     data_path = path + '3hrly/'
 
